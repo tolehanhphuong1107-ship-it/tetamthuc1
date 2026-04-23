@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gian hàng - Ẩm thực 12A2 Full Menu</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* CSS PHÓNG TO ẢNH (MODAL) */
+        #imageModal {
+            display: none; 
+            position: fixed; 
+            z-index: 999999; /* Ưu tiên cao nhất */
+            left: 0; top: 0; 
+            width: 100%; height: 100%; 
+            background-color: rgba(0, 0, 0, 0.9);
+            cursor: zoom-out;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 85%;
+            max-width: 800px;
+            border: 5px solid #fff;
+            border-radius: 10px;
+            animation: zoomIn 0.3s ease;
+            cursor: default;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #fff;
+            font-size: 60px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1000000;
+        }
+
+        #caption {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.2rem;
+        }
+
+        /* Đảm bảo ảnh và lớp phủ có thể bấm được */
+        .product-img img, .gallery-item {
+            cursor: zoom-in;
+        }
+        
+        .gallery-item img {
+            transition: 0.3s;
+        }
+
+        .gallery-item:hover img {
+            opacity: 0.8;
+        }
+
+        /* CSS FORM ĐẶT HÀNG */
+        #orderModal {
+            display: none; position: fixed; z-index: 1000000;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.7); align-items: center; justify-content: center;
+        }
+        .order-form-container {
+            background: white; padding: 30px; border-radius: 15px;
+            width: 90%; max-width: 400px; position: relative; box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+        }
+        .order-form-container h2 { color: #d32f2f; margin-bottom: 15px; font-family: 'Playfair Display', serif; }
+        .order-form-container input, .order-form-container textarea {
+            width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; font-family: 'Inter', sans-serif;
+        }
+        .btn-submit-order {
+            background: #ff4d4d; color: white; border: none; width: 100%;
+            padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.3s;
+        }
+        .btn-submit-order:hover { background: #cc0000; }
+
+        /* Tinh chỉnh UI */
+        .product-card { transition: 0.3s; border: 1px solid #eee; border-radius: 15px; overflow: hidden; background: #fff; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .product-img img { width: 100%; height: 200px; object-fit: cover; cursor: zoom-in; }
+        .btn-buy { background: #d32f2f; color: white; border: none; padding: 8px 20px; border-radius: 5px; cursor: pointer; font-weight: 600; }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo"><h1> Xuân <span> An khang</span> Ẩm thực 12A2 </h1></div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Trang chủ</a></li>
+                    <li><a href="#products">Sản phẩm</a></li>
+                    <li><a href="#combos">Combo món ăn</a></li>
+					<li><a href="#reasons">Vì sao chọn chúng tôi</a></li>
+                    <li><a href="#contact">Liên hệ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container hero-content">
+                <h2>Gian hàng ẩm thực-Tịnh xá 12A2</h2>
+                <p>Thực đơn đa dạng - Hương vị khó quên - Đậm chất 12A2!</p>
+                <a href="#products" class="btn">Xem thực đơn ngay</a>
+            </div>
+        </section>
+
+        <section id="products" class="products">
+            <div class="container">
+                <h2 class="section-title">Thực Đơn Món Ăn</h2>
+                <div class="products-grid">
+                    
+                    <div class="product-card">
+                        <div class="product-img"><img src="img/h.png" alt="Thịt xiên nướng" class="zoomable"></div>
+                        <div class="product-info">
+                            <h3>Thịt xiên nướng</h3>
+                            <p class="product-description">Ướp từ gia vị đại ngàn, nướng bằng cả tấm lòng vàng!</p>
+                            <div class="product-price">10.000 VNĐ/xiên</div>
+                            <button class="btn-buy">Đặt món ngay</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-img"><img src="img/hh.png" alt="Panna Cotta" class="zoomable"></div>
+                        <div class="product-info">
+                            <h3>Panna Cotta</h3>
+                            <p class="product-description">Mềm mại tan chảy, ngọt ngào hơn cả lời hứa crush.</p>
+                            <div class="product-price">10.000 VNĐ/hủ</div>
+                            <button class="btn-buy">Đặt món ngay</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-img"><img src="img/hhh.png" alt="Tiramisu" class="zoomable"></div>
+                        <div class="product-info">
+                            <h3>Tiramisu</h3>
+                            <p class="product-description">Hệ điều hành ngọt ngào, giao diện nâu trầm quý phái.</p>
+                            <div class="product-price">15.000 VNĐ/hủ</div>
+                            <button class="btn-buy">Đặt món ngay</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-img"><img src="img/hhhhh.png" alt="Photo Booth" class="zoomable"></div>
+                        <div class="product-info">
+                            <h3>Photo Booth</h3>
+                            <p class="product-description">Lưu giữ thanh xuân, đóng gói kỷ niệm vào khung hình.</p>
+                            <div class="product-price">15.000 VNĐ/người</div>
+                            <button class="btn-buy">Đặt chỗ chụp ảnh</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="combos" class="combos">
+            <div class="container">
+                <h2 class="section-title">Combo Siêu Hời</h2>
+                <div class="combos-container">
+                    <div class="combo-card">
+                        <div class="combo-header"><h3>Combo Khởi Đầu</h3></div>
+                        <div class="combo-body">
+                            <ul><li>2 thịt xiên</li>
+                                <li>1 hủ Panna Cotta</li></ul>
+                            <div class="combo-price">30.000 VNĐ</div>
+                            <button class="btn-buy">Chọn Combo</button>
+                        </div>
+                    </div>
+					<div class="combo-card">
+                        <div class="combo-header"><h3>Combo Best-Seller</h3></div>
+                        <div class="combo-body">
+                            <ul><li>2 xiên thịt nướng</li>
+                                <li>1 bánh Tiramisu</li></ul>
+                            <div class="combo-price">35.000 VNĐ</div>
+                            <button class="btn-buy">Chọn Combo</button>
+                        </div>
+                    </div>
+					
+                    <div class="combo-card">
+                        <div class="combo-header"><h3>Combo VIP</h3></div>
+                        <div class="combo-body">
+                            <ul><li>3 xiên nướng</li>
+                                <li>2 hủ Panna Cotta</li>
+                                <li>2 bánh Tiramisu</li>
+                                <li>Miễn phí 1 lượt chụp Photo Booth</li></ul>
+                            <div class="combo-price">65.000 VNĐ</div>
+                            <button class="btn-buy">Chọn Combo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+	<section id="reasons" class="reasons">
+            <div class="container">
+                <h2 class="section-title">Vì Sao Chọn Chúng Tôi</h2>
+                <div class="reasons-container">
+                    <div class="reason-card">
+                        <div class="reason-icon">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <h3>Ẩm thực "out trình"</h3>
+                        <p>Không chỉ là nấu ăn, chúng mình mang đến một trải nghiệm vị giác bùng nổ.</p>
+                    </div>
+                    <div class="reason-card">
+                        <div class="reason-icon">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <h3>Góc check-in "thần thánh"</h3>
+                        <p>Photo Booth cực xịn, ánh sáng chuẩn, cân mọi camera thường.</p>
+                    </div>
+                    <div class="reason-card">
+                        <div class="reason-icon">
+                            <i class="fas fa-tag"></i>
+                        </div>
+                        <h3>Dàn nhân viên "tấu hài"</h3>
+                        <p>Nhân viên lớp mình có thể nhan sắc có hạn nhưng kỹ năng "thao túng" khách hàng và độ nhiệt tình thì chắc chắn thuộc hàng top của hội trại năm nay.</p>
+                    </div>
+                    <div class="reason-card">
+                        <div class="reason-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <h3>Hệ sinh thái Combo "siêu hời"</h3>
+                        <p> Với phương châm "vui lòng khách đến, vừa túi khách đi", 12A2 tự tin là địa điểm có mức giá "hạt dẻ" nhất nhưng chất lượng lại thuộc hàng "Premium".</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+		<!-- Gallery ảnh Tết -->
+        <section class="gallery">
+            <div class="container">
+                <h2 class="section-title">Không Khí Tết - Chi đoàn 12A2</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="img/kk2.png" alt="Hoa đào Tết" class="zoomable">
+                        <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="img/kk3.png" alt="Bánh chưng Tết" class="zoomable">
+                        <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="img/kk4.png" alt="Quà Tết truyền thống" class="zoomable">
+                        <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="img/kk5.png" alt="Không khí Tết" class="zoomable">
+                        <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="imageModal" onclick="this.style.display='none'">
+        <img class="modal-content" id="imgFull">
+    </div>
+
+                    
+    </main>
+<footer id="contact">
+        <div class="container">
+            <div class="footer-container">
+                <!-- Logo và slogan -->
+                <div class="footer-logo">
+                    <h2>Xuân An Khang</h2>
+                    <p>Tết này 12A2 bao no, bao ảnh đẹp, chỉ không bao bồ!</p>
+                </div>
+
+                <!-- Thông tin liên hệ -->
+                <div class="footer-contact">
+                    <h3>Liên Hệ</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 21 - Quang Trung - Xã Chư Păh - Gia Lai</p>
+                    <p><i class="fas fa-phone"></i> 0867 564 685</p>
+                    <p><i class="fas fa-envelope"></i> dothao34780@gmail.com</p>
+                </div>
+
+                <!-- Mạng xã hội -->
+                <div class="footer-social">
+                    <h3>Theo Dõi Chúng Tôi</h3>
+                    <div class="social-icons">
+					<a href="https://www.facebook.com/pthorcutiqahuhu" target="_blank">
+            <i class="fab fa-facebook-f"></i>
+                    <a href="https://www.instagram.com/12a2_mdc/#" target="_blank">
+            <i class="fab fa-instagram"></i>    
+                    <a href="https://www.tiktok.com/@mampodt458?lang=vi-VN" target="_blank">
+            <i class="fab fa-tiktok"></i>    
+                    <a href="https://myaccount.google.com/u/0/?utm_source=YouTubeWeb&tab=rk&utm_medium=act&gar=WzgwLCIyMzMzODciXQ&tab=rk&hl=vi&pli=1" target="_blank">
+            <i class="fab fa-youtube"></i>       
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bản quyền -->
+            <div class="copyright">
+                <p>&copy; 2026 Chi Đoàn 12A2 - Xuân An Khang. Chúc mừng năm mới!</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="imageModal" onclick="this.style.display='none'">
+        <img class="modal-content" id="imgFull">
+    </div>
+
+    <div id="orderModal">
+        <div class="order-form-container">
+            <span style="position:absolute; right:15px; top:10px; cursor:pointer; font-size:24px" onclick="document.getElementById('orderModal').style.display='none'">&times;</span>
+            <h2>Thông tin đặt hàng</h2>
+            <p id="itemName" style="font-weight:bold; color: #d32f2f; margin-bottom: 10px;"></p>
+            <form id="purchaseForm">
+                <input type="text" id="name" placeholder="Tên của bạn" required>
+                <input type="tel" id="phone" placeholder="Số điện thoại" required>
+                <textarea id="note" placeholder="Bạn muốn dặn dò gì thêm không?"></textarea>
+                <button type="submit" class="btn-submit-order">XÁC NHẬN ĐƠN HÀNG</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+       // 1. XỬ LÝ PHÓNG TO ẢNH
+        const imgModal = document.getElementById("imageModal");
+        const fullImg = document.getElementById("imgFull");
+        
+        // Tìm tất cả ảnh có class 'zoomable'
+        document.querySelectorAll('.zoomable').forEach(img => {
+            img.onclick = function(e) {
+                // Nếu người dùng bấm vào chính tấm ảnh
+                e.stopPropagation(); 
+                imgModal.style.display = "flex";
+                fullImg.src = this.src;
+            }
+        });
+
+        // Hỗ trợ bấm vào cả lớp phủ (Gallery Overlay) để phóng to
+        document.querySelectorAll('.gallery-overlay').forEach(overlay => {
+            overlay.onclick = function() {
+                const siblingImg = this.parentElement.querySelector('img');
+                imgModal.style.display = "flex";
+                fullImg.src = siblingImg.src;
+            }
+        });
+
+        // 2. XỬ LÝ MỞ FORM ĐẶT HÀNG
+        const orderModal = document.getElementById("orderModal");
+        const itemNameText = document.getElementById("itemName");
+
+        document.querySelectorAll('.btn-buy').forEach(btn => {
+            btn.onclick = function() {
+                const card = this.closest('.product-card') || this.closest('.combo-card');
+                const name = card.querySelector('h3').innerText;
+                itemNameText.innerText = "Món chọn: " + name;
+                orderModal.style.display = "flex";
+            }
+        });
+
+        // 3. XỬ LÝ GỬI FORM
+        document.getElementById("purchaseForm").onsubmit = function(e) {
+            e.preventDefault();
+            const customerName = document.getElementById("name").value;
+            alert("Cảm ơn " + customerName + "! Đơn hàng đã được ghi nhận.");
+            orderModal.style.display = "none";
+            this.reset();
+        }
+
+        // Đóng modal khi bấm ra ngoài vùng form
+        window.onclick = function(event) {
+            if (event.target == orderModal) orderModal.style.display = "none";
+        }
+    </script>
+       
+    </script>
+</body>
+</html>
